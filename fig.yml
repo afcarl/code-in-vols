@@ -1,0 +1,17 @@
+code:
+  image: phusion/baseimage:latest
+  volumes: 
+    - ./code:/code
+  command: /sbin/my_init --enable-insecure-key
+
+web:
+  build: web
+  volumes_from:
+    - code
+  ports:
+    - 8080:80
+
+worker:
+  build: worker
+  volumes_from:
+    - code
